@@ -143,3 +143,5 @@ cython_debug/
 *.png
 env/
 *.db
+.DS_Store
+
