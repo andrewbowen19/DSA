@@ -7,12 +7,13 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import uuid
-
+import seaborn as sns
 
 class randomPlotter(object):
 
     def __init__(self):
-        self.array_size = np.random.randint(0,1000)
+        '''Class to generate plots based on randomness'''
+        self.array_size = np.random.randint(0, 20000)
         print(f"Your random number is {self.array_size}")
 
     def hist2d(self, colormap='Reds', savefig=False):
@@ -33,7 +34,11 @@ class randomPlotter(object):
         
 #        Saving the figure
         if savefig:
-            file_path = os.path.join(".", "plots", "hist2d", f"hist2d_random_{colormap}_{self.array_size}.pdf")
+            
+            if not os.path.isdir(".", "plots", "hist2d", f"hists_{self.array_size}"):
+                os.path.mkdir(os.path.join(".", "plots", "hist2d", f"hists_{self.array_size}"))
+            
+            file_path = os.path.join(".", "plots", "hist2d", f"hists_{self.array_size}", f"hist2d_random_{colormap}_{self.array_size}.pdf")
             f.savefig(file_path)
 #        plt.close()
         
@@ -61,15 +66,17 @@ class randomPlotter(object):
         if savefig:
             file_path = os.path.join(".", "plots", "scatter", f"scatter_random_{colormap}_{self.array_size}.pdf")
             f.savefig(file_path)
+            
+        
 
     def sine(self, x):
         '''returns random sine values for an input array x'''
-        a = np.random.uniform(-100,100)
-        b = np.random.uniform(-100,100)
-        c = np.random.uniform(-100,100)
-        d = np.random.uniform(-100,100)
+        a = np.random.uniform(-1,1)
+        b = np.random.uniform(-1,1)
+        c = np.random.uniform(-1,1)
+        d = np.random.uniform(-1,1)
         print(f'Coefficients: a: {a} | b: {b} | c: {c} | d:{d}')
-        y = a * np.sin((b * x) + c) + d
+        y = a * np.sin(((1/b) * x) + c) + d
         return y
         
 
@@ -78,18 +85,69 @@ class randomPlotter(object):
         Creates wave plot by layering sine/cosine waves
         '''
         
-        
-        f, ax = plt.subplots()
-        for i in range(0,np.random.randint(0,100)):
-            x = np.arange(0, self.array_size, 1)
-            y = self.sine(x)
-            print(y)
-            
-            ax.plot(x,y)
+        f,ax = plt.subplots(figsize = (8,5))
+
+        X = np.arange(0,1000,1)
+        for x in np.arange(0,50,1):#plots 50 curves
+            r1 = np.random.rand()
+            r2 = np.random.rand()
+            r3 = np.random.rand()
+            r4 = np.random.rand()
+            op_function = r1 * (np.sin(r2 * X) ** r3) + r4
+            ax.plot(X, op_function)
             ax.set_xticks([])
             ax.set_yticks([])
+            plt.show()
+    
+    def chaotic_sine(x, mu, sig, wave_type='sine'):
+        '''
+        Returns sine or cosine dis
+        '''
+    
+        if wave_type=="sine":
+            return np.sin((X **2) * np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.))))
+        elif wave_type=='cosine':
+            return np.cos(X * np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.))))
+        else:
+            return np.sin(np.random.random() * x)
+    
+    def gauss(self, x, mu, sig):
+        '''
+        Returns Gaussian for an input array
+        
+        parameters:
+            x : array-like; input points to calculate gaussian dist for
+            mu : int or float; mean of distribution
+            sig : int or float; std dev of distribution
+        '''
+        return np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
+        
+    def make_gauss_waves(self, x, mu, sigma, save_fig=True):
+        '''
+        Creates overlaid Gaussian wave-packet plots
+        
+        parameters:
+            
+        '''
+        
+        f,ax = plt.subplots()
+        
+        for m, s in zip(mu, sigma):
+            ax.plot(x, np.random.random() * self.gauss(x, m, s))
+            ax.plot(x, np.random.random() * -self.gauss(x, m, s))
+        
+        ax.set_xticks([])
+        ax.set_yticks([])
+        title = uuid.uuid4().hex
+        ax.set_title(title)
+        
+        if save_fig:
+            plot_path = os.path.join('.', 'plots', 'waves', f'waves_gauus_{title}.pdf')
+            f.savefig(plot_path)
+        
         plt.show()
         
+
 if __name__=="__main__":
         
 #    List of all colormaps from matplot lib: https://matplotlib.org/stable/tutorials/colors/colormaps.html
@@ -101,10 +159,22 @@ if __name__=="__main__":
             'RdYlBu', 'RdYlGn', 'Spectral', 'coolwarm', 'bwr', 'seismic']
     
     rp = randomPlotter()
-    rp.makeWaves()
+    
+    ass = rp.array_size
+#    rp.makeWaves()
+
 
 #    looping through colormaps to compare
 #    for c in cmaps:
 #        print(f'Generating plots for colormap: {c}')
-#        rp.hist2d(colormap=c, savefig=True)
-#        rp.plotCircles(colormap="Set1", set_title=True, savefig=True)
+##        rp.hist2d(colormap=c, savefig=True)
+#
+#        rp.plotCircles(colormap=c, set_title=True, savefig=True)
+#        plt.close()
+        
+
+#    Gauss waves
+    m = np.random.randint(0,1000, 1000)
+    s = np.random.randint(0,1000, 1000)
+    x = np.linspace(0,1000)
+    rp.make_gauss_waves(x, m, s)
