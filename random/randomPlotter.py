@@ -117,7 +117,10 @@ class randomPlotter(object):
         Creates overlaid Gaussian wave-packet plots
         
         parameters:
-            
+            x : array-like; input array to create Gaussian dist
+            mu : int or float; mean of dist (randomly-generated)
+            sigma : int or float; std dev of gaussian dist
+            savefig : boolean, default True; if True, saves figure created as PDF
         '''
         
         f,ax = plt.subplots()
