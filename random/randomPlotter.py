@@ -6,6 +6,8 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.collections import PatchCollection
+from matplotlib.patches import Annulus, Ellipse
 import uuid
 import seaborn as sns
 
@@ -124,13 +126,15 @@ class randomPlotter(object):
         '''
         
         f,ax = plt.subplots()
-        
+        color_scheme = ['#598234', '#AEBD38', '#68829E', '#505160']
         for m, s in zip(mu, sigma):
             r = np.random.random()
             g = np.random.random()
             b = np.random.random()
-            ax.plot(x, np.random.random() * self.gauss(x, m, s), color=(r,g,b))
-            ax.plot(x, np.random.random() * -self.gauss(x, m, s), color=(r,g,b))
+            c_index = np.random.randint(0,3)
+            
+            ax.plot(x, np.random.random() * self.gauss(x, m, s), color=(r,g,b))#color_scheme[c_index])#(r,g,b))
+            ax.plot(x, np.random.random() * -self.gauss(x, m, s), color=(r,g,b))#color_scheme[c_index])#(r,g,b))
         
         ax.set_xticks([])
         ax.set_yticks([])
@@ -228,11 +232,76 @@ class randomPlotter(object):
         if savefig:
             f.savefig(os.path.join("plots", "contour", f"contour_{cmap}_{title}.pdf"))
             
-    def contour3d(self):
+    @staticmethod
+    def lin_model(m, x, b):
+        return m*x + b
+    
+    
+    def gridlines(self):
         '''
-        Created 3-dimensional contour plot, similar to randomPlotter.contour, but with a 3rd dimension
+        Creates weaving pattern of grid lines
         '''
+        print('Greating gridlines plot...')
+        m = np.random.random()
+        x = np.arange(-100,100,1)
+        b=-100
         
+        f,ax = plt.subplots()
+        print(f'Default slope: {m}')
+        for i in range(0,50):
+            y = self.lin_model(m, x, b)
+            z = self.lin_model(-m, x, b)
+            b += 50
+
+            ax.plot(x,y, color=str(np.random.random()))
+            ax.plot(x,z, color=str(np.random.random()))
+            
+        
+        ax.set_xticks([])
+        ax.set_yticks([])
+    
+    
+    def ellipses(self, savefig:bool=False):
+        '''Plots randomly generated ellipses and fill in intersections'''
+        
+
+        
+        f,ax = plt.subplots()
+        ax.set_xlim(-10, 10)
+        ax.set_ylim(-10, 10)
+        
+        for _ in range(0, 30):
+            
+#            Generate annulus obj
+            x = np.random.uniform(-10, 10)
+            y = np.random.uniform(-10, 10)
+            width = np.random.uniform(0, 15)
+            height = np.random.uniform(0, 15)
+
+            angle = np.random.uniform(0, 360)
+            
+            r = np.random.random()
+            g = np.random.random()
+            b = np.random.random()
+            
+            ellipse = Ellipse((x,y), width, height, angle, alpha=np.random.uniform(0,0.5), color=(r, g, b))
+
+            ax.add_patch(ellipse)
+            
+        title = uuid.uuid4().hex
+            
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_axis_off()
+        ax.set_title(title)
+
+#        Saving figure
+        if savefig:
+            fig_path = os.path.join('plots', 'ellipses', f'ellipses_{title}.pdf')
+            f.savefig(fig_path)
+            
+            
+            
 
 if __name__=="__main__":
         
@@ -249,10 +318,12 @@ if __name__=="__main__":
                       'tab20c']
     
     rp = randomPlotter()
-    
-    for _ in range(0,5):
-
-        rp.contour(np.sin, np.cos, 'Set1',threeD=True, savefig=True)
+    c = "tab20c"
+#    rp.hist2d(colormap=c, savefig=True)
+#    rp.hist2d(colormap=c+"_r", savefig=True)
+#    for _ in range(0,5):
+#
+#        rp.contour(np.sin, np.cos, 'Set1',threeD=True, savefig=True)
 
 #    looping through colormaps to compare
 #    for c in cmaps:
@@ -266,15 +337,18 @@ if __name__=="__main__":
 
 #    Gauss waves
 #    print('Creating Gauss waves')
-#    m = np.random.randint(0,1000, 1000)
-#    s = np.random.randint(0,1000, 1000)
-#    x = np.linspace(0,1000)
+#    m = np.random.randint(-1,1,10)#-100,100, 250)
+#    s = np.random.randint(-1,1,10)#100,100, 250)
+#    x = np.linspace(-10,10)#-250,250)
 #    rp.make_gauss_waves(x, m, s)
-
+    
+#    Gridlines
+#    for _ in range(0,5):
+#        rp.gridlines()
 
     ### Making Quiver Plot ###
 #    for _ in range(0,5):
 #        rp.quiver_plot()
 
-    
-
+    rp.ellipses()
+    plt.show()
