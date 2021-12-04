@@ -29,18 +29,20 @@ class randomPlotter(object):
         x = np.arange(0, self.array_size, 1)
         y = np.random.random(x.size)
 
-        f, ax = plt.subplots()
+        f, ax = plt.subplots(figsize=(10,10))
         ax.hist2d(x, y, cmap = colormap, bins=[25,25])
         ax.set_xticks([])
         ax.set_yticks([])
+        
+        ax.axis('off')
         
 #        Saving the figure
         if savefig:
             
             if not os.path.isdir(os.path.join(".", "plots", "hist2d", f"hists_{self.array_size}")):
-                os.mkdir(os.path.join(".", "plots", "hist2d", f"hists_{self.array_size}"))
+                os.mkdir(os.path.join("..", "plots", "hist2d", f"hists_{self.array_size}"))
             
-            file_path = os.path.join(".", "plots", "hist2d", f"hists_{self.array_size}", f"hist2d_random_{colormap}_{self.array_size}.pdf")
+            file_path = os.path.join("..", "plots", "hist2d", f"hists_{self.array_size}", f"hist2d_random_{colormap}_{self.array_size}.pdf")
             f.savefig(file_path)
 #        plt.close()
         
@@ -68,7 +70,7 @@ class randomPlotter(object):
             ax.set_title(title_hash)
             
         if savefig:
-            file_path = os.path.join(".", "plots", "scatter", f"scatter_random_{colormap}_{self.array_size}.pdf")
+            file_path = os.path.join("..", "plots", "scatter", f"scatter_random_{colormap}_{self.array_size}.pdf")
             f.savefig(file_path)
             
         
@@ -128,9 +130,9 @@ class randomPlotter(object):
         f,ax = plt.subplots()
         color_scheme = ['#598234', '#AEBD38', '#68829E', '#505160']
         for m, s in zip(mu, sigma):
-            r = np.random.random()
-            g = np.random.random()
-            b = np.random.random()
+            r = np.random.uniform(0,0.2)
+            g = 0.7#np.random.random()
+            b = np.random.uniform(0,0.5)
             c_index = np.random.randint(0,3)
             
             ax.plot(x, np.random.random() * self.gauss(x, m, s), color=(r,g,b))#color_scheme[c_index])#(r,g,b))
@@ -183,7 +185,7 @@ class randomPlotter(object):
 #        plt.show()
     
         if savefig:
-            f.savefig(os.path.join("plots", "quiver", "quiver", f"quiver_{title}.pdf"))
+            f.savefig(os.path.join("..", "plots", "quiver", "quiver", f"quiver_{title}.pdf"))
             
     def contour(self, x_func, y_func, cmap='viridis', threeD:bool=False, savefig:bool=False):
         '''creates artsy contour plot
@@ -230,7 +232,7 @@ class randomPlotter(object):
         plt.show()
     
         if savefig:
-            f.savefig(os.path.join("plots", "contour", f"contour_{cmap}_{title}.pdf"))
+            f.savefig(os.path.join("..", "plots", "contour", f"contour_{cmap}_{title}.pdf"))
             
     @staticmethod
     def lin_model(m, x, b):
@@ -318,9 +320,9 @@ if __name__=="__main__":
                       'tab20c']
     
     rp = randomPlotter()
-    c = "tab20c"
-#    rp.hist2d(colormap=c, savefig=True)
-#    rp.hist2d(colormap=c+"_r", savefig=True)
+    c = "BrBG"
+    rp.hist2d(colormap=c, savefig=True)
+    rp.hist2d(colormap=c+"_r", savefig=True)
 #    for _ in range(0,5):
 #
 #        rp.contour(np.sin, np.cos, 'Set1',threeD=True, savefig=True)
@@ -336,11 +338,11 @@ if __name__=="__main__":
         
 
 #    Gauss waves
-#    print('Creating Gauss waves')
-#    m = np.random.randint(-1,1,10)#-100,100, 250)
-#    s = np.random.randint(-1,1,10)#100,100, 250)
-#    x = np.linspace(-10,10)#-250,250)
-#    rp.make_gauss_waves(x, m, s)
+    print('Creating Gauss waves')
+    m = np.random.randint(-100,100, 250)
+    s = np.random.randint(-100,100, 250)
+    x = np.linspace(-250,250)
+    rp.make_gauss_waves(x, m, s, savefig=True)
     
 #    Gridlines
 #    for _ in range(0,5):
@@ -350,5 +352,7 @@ if __name__=="__main__":
 #    for _ in range(0,5):
 #        rp.quiver_plot()
 
-    rp.ellipses()
+#   Ellipses
+#    for _ in range(0,10):
+#        rp.ellipses(savefig=True)
     plt.show()

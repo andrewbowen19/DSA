@@ -56,7 +56,7 @@ class mondrian():
         
 #        plt.show()
         if savefig:
-            plt.savefig(os.path.join("plots", "mondrian", f"mondrian_{title}.pdf"))
+            plt.savefig(os.path.join("..", "plots", "mondrian", f"mondrian_{title}.pdf"))
         
         plt.close()
 
