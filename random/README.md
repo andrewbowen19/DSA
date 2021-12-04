@@ -16,9 +16,9 @@ There are several python modules/scripts in the `src` sub-directory. This contai
 
 #### mondrianMaker
 **Sample *randomly-created* 'Mondrian Style' image**
-The `mondrianMaker.py` script contained in the `src` sub-directory produces ['*Mondrian-style*'(https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjZ2ZTJxMr0AhX4jIkEHb_gDqIQFnoECAMQAQ&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FPiet_Mondrian&usg=AOvVaw3gIr84anCOfzhG9ksYQbVU)] images from randomly generated number sequences. The black gridlines and color map for the squares are generated via numpy's random module.
+The `mondrianMaker.py` script contained in the `src` sub-directory produces ['*Mondrian-style*'](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjZ2ZTJxMr0AhX4jIkEHb_gDqIQFnoECAMQAQ&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FPiet_Mondrian&usg=AOvVaw3gIr84anCOfzhG9ksYQbVU)] images from randomly generated number sequences. The black gridlines and color map for the squares are generated via numpy's random module.
 
-![Sample "random" Mondrian](./img/sample_random_mondrian.png)
+![Sample "random" Mondrian](/img/sample_random_mondrian.png?raw=true)
 
 
 
