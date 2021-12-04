@@ -137,14 +137,11 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# Custom ignores
-*.pdf
-*.csv
-*.db
-*.DS_Store
 
-plots/*
-img/
-*.jpeg
-*.jpg
+*.csv
+*.pdf
+
+env/
+*.db
+.DS_Store
 

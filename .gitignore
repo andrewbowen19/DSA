@@ -145,3 +145,6 @@ env/
 *.db
 .DS_Store
 
+random/img/millie.png
+random/plots/*.png
+
