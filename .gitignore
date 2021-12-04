@@ -140,7 +140,7 @@ cython_debug/
 
 *.csv
 *.pdf
-*.png
+
 env/
 *.db
 .DS_Store
