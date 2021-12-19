@@ -30,7 +30,7 @@ There are a few command-line arguments that can be passed to either script. Thes
 
 Source Image | Panel Output
 :------------:|:------------------:
-![](/img/jeff-laurel-proposal.png?raw=true) |  ![](/img/for_jeff_and_laurel.png?raw=true)
+![](./img/jeff-laurel-proposal.png?raw=true) |  ![](./img/for_jeff_and_laurel.png?raw=true)
 
 The above sub-plots are as follows: *Source/input* image (upper-left), The source image with the user-defined colormap applied (upper-right), A plot of the entropy of the image (bottom-left; calculated via [`scikit-image`](https://scikit-image.org/docs/dev/auto_examples/filters/plot_entropy.html)), The [Region-Adjacency Graph](https://scikit-image.org/docs/dev/auto_examples/segmentation/plot_rag.html) of the image.
 
