@@ -27,7 +27,9 @@ python jeffAndLaurel.py <Input File> <Color Map>
 There are a few command-line arguments that can be passed to either script. These can be used to specifiy the *input/source* image, as well as the colormap desired for the entropy image. Note that the colormap command-line argument should be a [matplotlib-style colormap](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwi84_3x-vD0AhUqUt8KHVKpCBkQFnoECAUQAQ&url=https%3A%2F%2Fmatplotlib.org%2Fstable%2Ftutorials%2Fcolors%2Fcolormaps.html&usg=AOvVaw1hdMfFfMuM8-VtgKNRXXak).
 
 ### Output Example
-Source Image | Panel Output:------------:|:------------------:
+
+Source Image | Panel Output
+:------------:|:------------------:
 ![](/img/jeff-laurel-proposal.png?raw=true) |  ![](/img/for_jeff_and_laurel.png?raw=true).
 
 The above sub-plots are as follows: *Source/input* image (upper-left), The source image with the user-defined colormap applied (upper-right), A plot of the entropy of the image (bottom-left; calculated via [`scikit-image`](https://scikit-image.org/docs/dev/auto_examples/filters/plot_entropy.html)), The [Region-Adjacency Graph](https://scikit-image.org/docs/dev/auto_examples/segmentation/plot_rag.html) of the image.
