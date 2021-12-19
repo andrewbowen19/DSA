@@ -6,7 +6,7 @@ from sys import argv
 
 if __name__=="__main__":
     cmap = 'PuRd'
-    raw_image_path = os.path.join('.', 'data', 'jeff-laurel-proposal.png')
+    raw_image_path = os.path.join('.', 'img', 'jeff-laurel-proposal.png')
     
 #    Allow user to pass command-line arguments if they want to change the colormap/input image
     try:

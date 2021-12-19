@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import numpy as np
 import os
+from sys import argv
 from scipy import ndimage
 
 
@@ -28,6 +29,9 @@ class imageRecreate():
         parameters:
             image_path : str; path to image file to be read-in
             as_array : bool, default True; if True, a numpy.ndarray is returned. If False, a Pillow.Image object is returned.
+            
+        returns:
+            image : PIL Image object or np.array (if as_array set to True) ; raw image data from source image, can be manipulated with other class methods
         '''
         
         image = None
@@ -124,7 +128,7 @@ class imageRecreate():
         
         return out2
         
-    def create_panel(self, image_path):
+    def create_panel(self, image_path:str, savefig:bool=False):
         '''
         Create 2x2 panel print contianing colormap, entropy, and RAG images
         '''
@@ -147,13 +151,29 @@ class imageRecreate():
                 axs[i,j].set_axis_off()
         f.tight_layout(pad=2)
             
-        f.savefig('plots/for_jeff_and_laurel_tight.pdf', bbox_inches='tight')
+        if savefig:
+            file_name =os.path.basename(image_path).split('.')[0]
+            file_path = os.path.join(file_name + "_panel.png")
+            f.savefig(os.path.join('plots', f'.png'), bbox_inches='tight')
         
         return f, axs
 
             
 if __name__=="__main__":
-    proposal_path = os.path.join(os.path.join('data', 'jeff-laurel-proposal.png')
+
+#    Default input path/cmap
+    input_path = os.path.join(os.path.join('img', 'jeff-laurel-proposal.png')
+    cmap = 'PuRd'
+    
+#    Get command line args if they are passed by the user
+    try:
+        input_path = argv[1]
+        cmap = argv[0]
+        
+    except:
+        pass
+        
+#    Create the image
     ir = imageRecreate(cmap='PuRd')
-    ir.create_panel(proposal_path)
+    ir.create_panel(input_path)
 

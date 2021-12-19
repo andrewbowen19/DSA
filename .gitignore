@@ -151,7 +151,7 @@ random/plots/*.png
 
 image_recreate/licpy/
 image_recreate/plots/*
-image_recreate/data/*
+image_recreate/data/*.png
 image_recreate/logs
 
 
