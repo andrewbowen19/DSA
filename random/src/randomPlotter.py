@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Annulus, Ellipse
+from matplotlib.tri import Triangulation
 import uuid
 import seaborn as sns
 
@@ -190,7 +191,6 @@ class randomPlotter(object):
     def contour(self, x_func, y_func, cmap='viridis', threeD:bool=False, savefig:bool=False):
         '''creates artsy contour plot
         
-        
         parameters:
             x_func, y_func: functions; applied to x and y data arrays, respectively
             cmap : str; matplotlib colormap
@@ -266,8 +266,6 @@ class randomPlotter(object):
     def ellipses(self, savefig:bool=False):
         '''Plots randomly generated ellipses and fill in intersections'''
         
-
-        
         f,ax = plt.subplots()
         ax.set_xlim(-10, 10)
         ax.set_ylim(-10, 10)
@@ -302,8 +300,43 @@ class randomPlotter(object):
             fig_path = os.path.join('plots', 'ellipses', f'ellipses_{title}.pdf')
             f.savefig(fig_path)
             
-            
-            
+    def triplot(self, savefig:bool=False):
+        '''
+        Creates triplot (mesh) from randomly-generated data
+        '''
+    
+        gridsize = 3
+#        np.random.seed(10131963)
+        f, axs = plt.subplots(gridsize,gridsize, figsize=(8,8))
+        
+        #        generating triangle points and vertices coords
+        x = np.random.uniform(0,5,100)
+        y = np.random.uniform(0,5,100)
+        triples = np.random.randint(0,100, size=(x.size, 3))
+        
+#        Generating color and triangulation obj
+        C = np.random.randint(10,size=x.size)
+        triangles = Triangulation(x, y, triples)
+
+        
+#        Creating grid of pattern
+        alpha = 0.1
+        for i in range(0,gridsize):
+            for j in range(0,gridsize):
+                alpha = np.random.random()
+                axs[i,j].tripcolor(triangles, facecolors=C,  cmap=self.cmap, alpha=alpha)
+                
+
+
+#        ax.set(xlim=(0, 10), ylim=(0,10))
+#        ax.set_xticks([])
+#        ax.set_yticks([])
+                axs[i,j].set_axis_off()
+        
+        if savefig:
+            index = np.random.randint(0,10000)
+            print(f'Tripcolor index: {index}')
+            f.savefig(os.path.join("..", "plots", "triplots", f"triplot_{self.cmap}_{index}_mom_proof.pdf"))
 
 if __name__=="__main__":
         
@@ -321,8 +354,9 @@ if __name__=="__main__":
     
     rp = randomPlotter()
     c = "BrBG"
-    rp.hist2d(colormap=c, savefig=True)
-    rp.hist2d(colormap=c+"_r", savefig=True)
+    rp.cmap = c
+#    rp.hist2d(colormap=c, savefig=True)
+#    rp.hist2d(colormap=c+"_r", savefig=True)
 #    for _ in range(0,5):
 #
 #        rp.contour(np.sin, np.cos, 'Set1',threeD=True, savefig=True)
@@ -338,12 +372,12 @@ if __name__=="__main__":
         
 
 #    Gauss waves
-    print('Creating Gauss waves')
-    m = np.random.randint(-100,100, 250)
-    s = np.random.randint(-100,100, 250)
-    x = np.linspace(-250,250)
-    rp.make_gauss_waves(x, m, s, savefig=True)
-    
+#    print('Creating Gauss waves')
+#    m = np.random.randint(-100,100, 250)
+#    s = np.random.randint(-100,100, 250)
+#    x = np.linspace(-250,250)
+#    rp.make_gauss_waves(x, m, s, savefig=True)
+#
 #    Gridlines
 #    for _ in range(0,5):
 #        rp.gridlines()
@@ -355,4 +389,13 @@ if __name__=="__main__":
 #   Ellipses
 #    for _ in range(0,10):
 #        rp.ellipses(savefig=True)
+
+#    Making ~spiky~ tripcolor plot
+    mom_cmaps = [ "BrBG", 'vlag']
+    for c in mom_cmaps:
+        rp.cmap = c
+        rp.triplot(savefig=True)
+        
+        rp.cmap = c + "_r"
+        rp.triplot(savefig=True)
     plt.show()

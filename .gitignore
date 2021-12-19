@@ -141,15 +141,19 @@ cython_debug/
 *.csv
 *.pdf
 
+
 env/
 *.db
-.DS_Store
+*.DS_Store
 
 random/img/millie.png
 random/plots/*.png
 
-# Remove this for christmas
-src/for_mom.py
+image_recreate/licpy/
+image_recreate/plots/*
+image_recreate/data/*
+image_recreate/logs
+
 
 
 
