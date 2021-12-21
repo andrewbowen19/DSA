@@ -17,10 +17,11 @@ from skimage.future import graph
 
 class imageRecreate():
 
-    def __init__(self, path=None, cmap='viridis'):
+    def __init__(self, path=None, cmap='viridis', sub_figs: bool=False):
 #        print('Recreating image')
         self.path = path
         self.cmap = cmap
+        self.sub_figs = sub_figs
 
     def read_image(self, image_path:str, as_array:bool=True, convert_to_greyscale:bool=False):
         '''Reads in image data from a source file path
@@ -70,21 +71,22 @@ class imageRecreate():
         entr_img = entropy(im, disk(10))
         
 #        Plotting 3 panels: raw image, image with basic colormap, entropy image with same colormap applied
-        f, (ax1, ax2, ax3) = plt.subplots(nrows=1, ncols=3, figsize=(9,6),sharey=True)
-        ax1.imshow(np.asarray(Image.open(image_path)))
-        ax2.imshow(im, cmap=self.cmap)
-        ax3.imshow(entr_img, cmap=self.cmap)
-        
-#        Format the figure
-        for a in [ax1, ax2, ax3]:
-            a.set_axis_off()
-        f.tight_layout(pad=2)
-        
-        if savefig:
-            fig_path = os.path.join(".", 'plots', 'entropy', f'entropy_{im_name}_{self.cmap}.pdf')
-            f.savefig(fig_path, bbox_inches='tight', pad_inches = 1)
+        if self.sub_figs:
+            f, (ax1, ax2, ax3) = plt.subplots(nrows=1, ncols=3, figsize=(9,6),sharey=True)
+            ax1.imshow(np.asarray(Image.open(image_path)))
+            ax2.imshow(im, cmap=self.cmap)
+            ax3.imshow(entr_img, cmap=self.cmap)
             
-        f.clf()
+    #        Format the figure
+            for a in [ax1, ax2, ax3]:
+                a.set_axis_off()
+            f.tight_layout(pad=2)
+            
+            if savefig:
+                fig_path = os.path.join(".", 'plots', 'entropy', f'entropy_{im_name}_{self.cmap}.pdf')
+                f.savefig(fig_path, bbox_inches='tight', pad_inches = 1)
+                
+            # f.clf()
         
         return entr_img
         
@@ -97,7 +99,7 @@ class imageRecreate():
             savefig : bool, default False ; if True, figure is saved as pdf
         '''
         im_name = os.path.basename(image_path).split(".")[0]
-        im = self.read_image(image_path, True, True)
+        im = self.read_image(image_path, True)#, True)
         
         print(f'Generating RAG image..')
         print(f'N Segments: {n} | Threshold: {thresh} | Compactness {c}')
@@ -112,13 +114,14 @@ class imageRecreate():
         out2 = color.label2rgb(labels2, im, kind='avg', bg_label=0)
 
 #        Plot the image
-        f, ax = plt.subplots(nrows=1, ncols=2, sharex=True, sharey=True,
-                               figsize=(8, 5))
-        ax[0].imshow(out1)
-        ax[1].imshow(out2)
-        
-        ax[0].set_axis_off()
-        ax[1].set_axis_off()
+        if self.sub_figs:
+            f, ax = plt.subplots(nrows=1, ncols=2, sharex=True, sharey=True,
+                                figsize=(8, 5))
+            ax[0].imshow(out1)
+            ax[1].imshow(out2)
+            
+            ax[0].set_axis_off()
+            ax[1].set_axis_off()
         
 #        Save the figure if desired
         if savefig:
