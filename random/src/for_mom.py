@@ -7,10 +7,25 @@ import uuid
 from matplotlib.tri import Triangulation
 
 
-'''
-Script containing the code for my christmas present to mom.
-Want this to produce a panel plot (2x2) of different random data visualizations
-'''
+"""
+Script containing the code for my christmas present to my mom.
+
+Inscription:
+- - - - - - 
+Mom,
+
+I made this for you! 
+I know it may seem like gobbledy-gook but the idea of making this art with code was so you could always re-produce it.
+This code produces images based on sets of randomly-generated numbers.
+
+In addition to (I think) looking cool, it also reminds me of the part randomness plays in all out lives.
+I'm really lucky to have you as a mother, couldn't have asked for a better one. I hope you like the prints.
+
+Merry Christmas! Love you lots!
+
+Andrew
+
+"""
 
 
 class forMom:
