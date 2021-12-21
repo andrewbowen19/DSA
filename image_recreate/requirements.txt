@@ -201,7 +201,6 @@ libarchive-c==2.8
 libcst==0.3.11
 librosa==0.6.0
 lic==0.4.5
-licpy @ file:///Users/andrewbowen/sideProjects/dsa/image_recreate/licpy
 lief==0.9.0
 llvmlite==0.31.0
 locket==0.2.0

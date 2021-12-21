@@ -7,7 +7,6 @@ import os
 from sys import argv
 from scipy import ndimage
 
-
 import skimage.filters
 import skimage.io
 from skimage.filters.rank import entropy
@@ -98,9 +97,8 @@ class imageRecreate():
             savefig : bool, default False ; if True, figure is saved as pdf
         '''
         im_name = os.path.basename(image_path).split(".")[0]
-        im = self.read_image(image_path, True, False)
+        im = self.read_image(image_path, True, True)
         
-
         print(f'Generating RAG image..')
         print(f'N Segments: {n} | Threshold: {thresh} | Compactness {c}')
         
@@ -140,6 +138,7 @@ class imageRecreate():
         rag = self.segment_image(image_path, 1000, 40, 25)
         
 #        Plot the images
+        print('Creating plot...')
         f, axs = plt.subplots(nrows=2, ncols=2, figsize = (8,6))
         axs[0,0].imshow(image)
         axs[0,1].imshow(cmap_im, cmap=self.cmap)
@@ -152,9 +151,9 @@ class imageRecreate():
         f.tight_layout(pad=2)
             
         if savefig:
-            file_name =os.path.basename(image_path).split('.')[0]
-            file_path = os.path.join(file_name + "_panel.png")
-            f.savefig(os.path.join('plots', f'.png'), bbox_inches='tight')
+            file_name = os.path.basename(image_path).split('.')[0]
+            file_path = os.path.join("plots", file_name + "_panel.png")
+            f.savefig(file_path, bbox_inches='tight')
         
         return f, axs
 
@@ -162,7 +161,7 @@ class imageRecreate():
 if __name__=="__main__":
 
 #    Default input path/cmap
-    input_path = os.path.join(os.path.join('img', 'jeff-laurel-proposal.png')
+    input_path = os.path.join(os.path.join('img', 'jeff-laurel-proposal.png'))
     cmap = 'PuRd'
     
 #    Get command line args if they are passed by the user
@@ -175,5 +174,5 @@ if __name__=="__main__":
         
 #    Create the image
     ir = imageRecreate(cmap='PuRd')
-    ir.create_panel(input_path)
+    ir.create_panel(input_path, True)
 
