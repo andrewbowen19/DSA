@@ -40,10 +40,6 @@ if __name__=="__main__":
 #    jd.get_jobs_d÷ata()
     print(jd.df.head())
     print(jd.df.columns)
-#    print(jd.df['Approved'])
-    # print(jd.df["Owner's Last Name"].loc[jd.df['Approved']!="NaN"].value_counts())
-
-    # jd.scatter('')
 
     print(jd.df[["Street Name",'Block']])
     
