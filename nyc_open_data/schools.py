@@ -33,6 +33,7 @@ class schoolPlot:
             data[c] = pd.to_numeric(data[c])
 
         # Merging School locs with school data
+        # Using geopandas plot functionality
         df = pd.merge(self.schools, data, how='left', left_on='ATS_CODE', right_on='DBN').fillna(0)
         ax = df.plot(column='# Students Residing in Shelter',
                    markersize=5,
@@ -43,28 +44,10 @@ class schoolPlot:
         if savefig:
             plt.savefig(os.path.join('plots', f'school_data_{column}.pdf'))
 
-    def arts_plot(self):
-        '''Create plot exploring student access to arts
-        
-        https://data.cityofnewyork.us/Education/2021-Arts-Data-Report/9h53-fsqa
-
-        parameters:
-
-        '''
-        df = pd.read_csv("data/2021_Arts_Data_Report.csv")
-        print(df.head())
-        print(df.columns)
-        for c in df.columns:
-            print(c)
-
-
-    
-
 
 if __name__ == "__main__":
     # Reading in data and plotting scatter
     data_path = os.path.join("data", "2021_Students_In_Temporary_Housing.csv")
     s = schoolPlot()
-    # s.scatter(data_path, savefig=True)
-    # plt.show()
-    s.arts_plot()
+    s.scatter(data_path, savefig=True)
+    plt.show()
