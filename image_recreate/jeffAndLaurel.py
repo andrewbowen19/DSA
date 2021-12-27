@@ -47,7 +47,7 @@ if __name__ == "__main__":
     # Allow user to pass command-line arguments if they want to change the colormap/input image
     try:
         raw_image_path = argv[1]
-        cmap = argv[2]
+        cmap = argv[-1]
     except:
         cmap = 'PuRd'
         raw_image_path = os.path.join('.', 'img',
