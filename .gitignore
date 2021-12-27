@@ -154,7 +154,7 @@ image_recreate/plots/*
 image_recreate/data/*.png
 image_recreate/logs
 
-
+nyc_open_data/data/*
 
 
 

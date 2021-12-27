@@ -252,11 +252,11 @@ if __name__ == "__main__":
     fm = forMom(5000, axes_lines=True, cmap='Set1')
 
     # Create 2d hist with the colormap you like
-    fm.cmap = 'BrBG_r'
+    fm.cmap = 'plasma'
     fm.hist2d()
 
     # generating 2d hist with reverse colormap too
-    fm.cmap = 'BrBG'
+    fm.cmap = fm.cmap + "_r"
     fm.hist2d()
 
     # Create triplot

@@ -238,7 +238,6 @@ class randomPlotter(object):
     def lin_model(m, x, b):
         return m*x + b
     
-    
     def gridlines(self):
         '''
         Creates weaving pattern of grid lines
@@ -246,7 +245,7 @@ class randomPlotter(object):
         print('Greating gridlines plot...')
         m = np.random.random()
         x = np.arange(-100,100,1)
-        b=-100
+        b = -100
         
         f,ax = plt.subplots()
         print(f'Default slope: {m}')
@@ -261,7 +260,6 @@ class randomPlotter(object):
         
         ax.set_xticks([])
         ax.set_yticks([])
-    
     
     def ellipses(self, savefig:bool=False):
         '''Plots randomly generated ellipses and fill in intersections'''
