@@ -1,4 +1,7 @@
 #dsa/random/mondrianMaker.py
+# This version of the mondrian script is deprecated. 
+# For the updated version, check:
+    # https://github.com/andrewbowen19/mondrian-maker
 
 import os
 import matplotlib.pyplot as plt
@@ -27,7 +30,7 @@ class mondrian():
         cmap = LinearSegmentedColormap.from_list("Mondrian", colors, N=len(colors))
         return cmap
 
-    def mondrian_maker(self, savefig=False):
+    def make_random_mondiran(self, savefig=False):
         """
         Let's make some Mondrian's
         """
@@ -62,11 +65,11 @@ class mondrian():
 
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     m = mondrian()
     n_plots = np.random.randint(5,100)
     print(f'Generating {n_plots} mondrian plots')
 #    Generating some # of plots
     for _ in range(0,n_plots):
-        m.mondrian_maker(savefig=True)
+        m.make_random_mondiran(savefig=True)
 
