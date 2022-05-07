@@ -33,8 +33,9 @@ def create_rag(img) -> None:
     edges_rgb = color.gray2rgb(edges)
 
     g = graph.rag_boundary(labels, edges)
-    lc = graph.show_rag(labels, g, edges_rgb, img_cmap=None, edge_cmap='PuBuGn',
-                        edge_width=1.2)
+    print("G-Unit:", g)
+    lc = graph.show_rag(labels, g, edges_rgb, img_cmap='PuBuGn', edge_cmap=None, # 'PuBuGn',
+                        edge_width=0.0)
 
     io.show()
 

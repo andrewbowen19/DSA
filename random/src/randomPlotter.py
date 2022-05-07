@@ -7,8 +7,9 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.collections import PatchCollection
-from matplotlib.patches import Annulus, Ellipse
+from matplotlib.patches import Ellipse
 from matplotlib.tri import Triangulation
+import matplotlib
 import uuid
 import seaborn as sns
 
@@ -64,7 +65,7 @@ class randomPlotter(object):
         
         ax.axis('off')
         
-#        Setting figure title/saving figure if desired
+        # Setting figure title/saving figure if desired
         title_hash = ''
         if set_title:
             title_hash = uuid.uuid4().hex
@@ -168,8 +169,8 @@ class randomPlotter(object):
         angles = np.random.random(size=X.shape) * 360
         c = np.random.random(X.size)
         
-#        print('Arrow coords: ', X, Y)
-#        print('Arrow directions: ', U, V)
+        # print('Arrow coords: ', X, Y)
+        # print('Arrow directions: ', U, V)
         print('Arrow angles', angles)
         
         
@@ -178,12 +179,12 @@ class randomPlotter(object):
                     units='inches',
                     angles='xy', width=.15)
                     
-#        Setting title and removing axes ticks
+        # Setting title and removing axes ticks
         title = uuid.uuid4().hex
         ax.set_title(title)
         ax.set_xticks([])
         ax.set_yticks([])
-#        plt.show()
+        # plt.show()
     
         if savefig:
             f.savefig(os.path.join("..", "plots", "quiver", "quiver", f"quiver_{title}.pdf"))
@@ -232,7 +233,10 @@ class randomPlotter(object):
         plt.show()
     
         if savefig:
-            f.savefig(os.path.join("..", "plots", "contour", f"contour_{cmap}_{title}.pdf"))
+            f.savefig(os.path.join("..", "plots",
+                                   "contour", f"contour_{cmap}_{title}.pdf"))
+
+        # plt.close()
             
     @staticmethod
     def lin_model(m, x, b):
@@ -261,7 +265,7 @@ class randomPlotter(object):
         ax.set_xticks([])
         ax.set_yticks([])
     
-    def ellipses(self, savefig:bool=False):
+    def ellipses(self, cmap:str = 'BrBG', set_title:bool = False, savefig:bool=False):
         '''Plots randomly generated ellipses and fill in intersections'''
         
         f,ax = plt.subplots()
@@ -278,24 +282,27 @@ class randomPlotter(object):
 
             angle = np.random.uniform(0, 360)
             
-            r = np.random.random()
-            g = np.random.random()
-            b = np.random.random()
-            
-            ellipse = Ellipse((x,y), width, height, angle, alpha=np.random.uniform(0,0.5), color=(r, g, b))
+            # r = np.random.random()
+            # g = np.random.random()
+            # b = np.random.random()
+            cmap = matplotlib.cm.get_cmap(cmap)
+            c = np.random.random()
 
+            ellipse = Ellipse((x,y), width, height, angle, color=cmap(c), alpha=np.random.uniform(0,1))
             ax.add_patch(ellipse)
-            
-        title = uuid.uuid4().hex
             
         ax.set_xticks([])
         ax.set_yticks([])
         ax.set_axis_off()
-        ax.set_title(title)
 
-#        Saving figure
+        title = uuid.uuid4().hex
+        if set_title:
+            
+            ax.set_title(title)
+
+        # Saving figure
         if savefig:
-            fig_path = os.path.join('plots', 'ellipses', f'ellipses_{title}.pdf')
+            fig_path = os.path.join("..", 'plots', 'ellipses', f'ellipses_{title}.pdf')
             f.savefig(fig_path)
             
     def triplot(self, savefig:bool=False):
@@ -315,20 +322,13 @@ class randomPlotter(object):
 #        Generating color and triangulation obj
         C = np.random.randint(10,size=x.size)
         triangles = Triangulation(x, y, triples)
-
-        
+   
 #        Creating grid of pattern
         alpha = 0.1
         for i in range(0,gridsize):
             for j in range(0,gridsize):
                 alpha = np.random.random()
                 axs[i,j].tripcolor(triangles, facecolors=C,  cmap=self.cmap, alpha=alpha)
-                
-
-
-#        ax.set(xlim=(0, 10), ylim=(0,10))
-#        ax.set_xticks([])
-#        ax.set_yticks([])
                 axs[i,j].set_axis_off()
         
         if savefig:
@@ -384,16 +384,19 @@ if __name__=="__main__":
 #    for _ in range(0,5):
 #        rp.quiver_plot()
 
-#   Ellipses
-#    for _ in range(0,10):
-#        rp.ellipses(savefig=True)
+    # Ellipses
+    for _ in range(0,10):
+       rp.ellipses(savefig=True)
 
-#    Making ~spiky~ tripcolor plot
-    mom_cmaps = [ "BrBG", 'vlag']
-    for c in mom_cmaps:
-        rp.cmap = c
-        rp.triplot(savefig=True)
+    # Making ~spiky~ tripcolor plot
+    # mom_cmaps = [ "BrBG", 'vlag']
+    # for c in mom_cmaps:
+    #     rp.cmap = c
+    #     rp.triplot(savefig=True)
         
-        rp.cmap = c + "_r"
-        rp.triplot(savefig=True)
+    #     rp.cmap = c + "_r"
+    #     rp.triplot(savefig=True)
+    
     plt.show()
+
+

@@ -1,5 +1,5 @@
 # Example from sci-kit image docs
-# https://scikit-image.org/docs/dev/auto_examples/segmentation/plot_rag.html
+# https://scikit-image.org/docs/dev/auto_examples/segmentation/plot_rag.htmlpip
 
 
 
@@ -47,26 +47,26 @@ def display(g, title):
     nx.draw_networkx_labels(g, pos)
     nx.draw_networkx_edge_labels(g, pos, font_size=20)
 
+if __name__ == "__main__":
+    g = rag.RAG()
+    g.add_edge(1, 2, weight=10)
+    g.add_edge(2, 3, weight=20)
+    g.add_edge(3, 4, weight=30)
+    g.add_edge(4, 1, weight=40)
+    g.add_edge(1, 3, weight=50)
 
-g = rag.RAG()
-g.add_edge(1, 2, weight=10)
-g.add_edge(2, 3, weight=20)
-g.add_edge(3, 4, weight=30)
-g.add_edge(4, 1, weight=40)
-g.add_edge(1, 3, weight=50)
+    # Assigning dummy labels.
+    for n in g.nodes():
+        g.nodes[n]['labels'] = [n]
 
-# Assigning dummy labels.
-for n in g.nodes():
-    g.nodes[n]['labels'] = [n]
+    gc = g.copy()
 
-gc = g.copy()
+    display(g, "Original Graph")
 
-display(g, "Original Graph")
+    g.merge_nodes(1, 3)
+    display(g, "Merged with default (min)")
 
-g.merge_nodes(1, 3)
-display(g, "Merged with default (min)")
+    gc.merge_nodes(1, 3, weight_func=max_edge, in_place=False)
+    display(gc, "Merged with max without in_place")
 
-gc.merge_nodes(1, 3, weight_func=max_edge, in_place=False)
-display(gc, "Merged with max without in_place")
-
-plt.show()
+    plt.show()
