@@ -133,7 +133,7 @@ class randomPlotter(object):
         color_scheme = ['#598234', '#AEBD38', '#68829E', '#505160']
         for m, s in zip(mu, sigma):
             r = np.random.uniform(0,0.2)
-            g = 0.7#np.random.random()
+            g = 0.7
             b = np.random.uniform(0,0.5)
             c_index = np.random.randint(0,3)
             
@@ -258,14 +258,14 @@ class randomPlotter(object):
             z = self.lin_model(-m, x, b)
             b += 50
 
-            ax.plot(x,y, color=str(np.random.random()))
-            ax.plot(x,z, color=str(np.random.random()))
+            ax.plot(x, y, color=str(np.random.random()))
+            ax.plot(x, z, color=str(np.random.random()))
             
         
         ax.set_xticks([])
         ax.set_yticks([])
     
-    def ellipses(self, cmap:str = 'BrBG', set_title:bool = False, savefig:bool=False):
+    def ellipses(self, cmap:str = 'BrBG', hatch:str, set_title:bool = False, savefig:bool=False):
         '''Plots randomly generated ellipses and fill in intersections'''
         
         f,ax = plt.subplots()
@@ -288,7 +288,11 @@ class randomPlotter(object):
             cmap = matplotlib.cm.get_cmap(cmap)
             c = np.random.random()
 
-            ellipse = Ellipse((x,y), width, height, angle, color=cmap(c), alpha=np.random.uniform(0,1))
+            ellipse = Ellipse((x, y),
+                              width, height,
+                              angle, color=cmap(c),
+                              alpha=np.random.uniform(0,1),
+                              hatch=hatch)
             ax.add_patch(ellipse)
             
         ax.set_xticks([])
@@ -353,36 +357,36 @@ if __name__=="__main__":
     rp = randomPlotter()
     c = "BrBG"
     rp.cmap = c
-#    rp.hist2d(colormap=c, savefig=True)
-#    rp.hist2d(colormap=c+"_r", savefig=True)
-#    for _ in range(0,5):
-#
-#        rp.contour(np.sin, np.cos, 'Set1',threeD=True, savefig=True)
+    # rp.hist2d(colormap=c, savefig=True)
+    # rp.hist2d(colormap=c+"_r", savefig=True)
+    # for _ in range(0,5):
 
-#    looping through colormaps to compare
-#    for c in cmaps:
-#        print(f'Generating plots for colormap: {c}')
-#        rp.hist2d(colormap=c, savefig=True)
-#
-#        rp.plotCircles(colormap=c, set_title=True, savefig=True)
-#        rp.contour(np.sin, np.cos, c, savefig=True)
-#        plt.close()
+    #    rp.contour(np.sin, np.cos, 'Set1',threeD=True, savefig=True)
+
+    # looping through colormaps to compare
+    # for c in cmaps:
+    #    print(f'Generating plots for colormap: {c}')
+    #    rp.hist2d(colormap=c, savefig=True)
+
+    #    rp.plotCircles(colormap=c, set_title=True, savefig=True)
+    #    rp.contour(np.sin, np.cos, c, savefig=True)
+    #    plt.close()
         
 
-#    Gauss waves
-#    print('Creating Gauss waves')
-#    m = np.random.randint(-100,100, 250)
-#    s = np.random.randint(-100,100, 250)
-#    x = np.linspace(-250,250)
-#    rp.make_gauss_waves(x, m, s, savefig=True)
-#
-#    Gridlines
-#    for _ in range(0,5):
-#        rp.gridlines()
+    # Gauss waves
+    # print('Creating Gauss waves')
+    # m = np.random.randint(-100,100, 250)
+    # s = np.random.randint(-100,100, 250)
+    # x = np.linspace(-250,250)
+    # rp.make_gauss_waves(x, m, s, savefig=True)
+    #
+    #    Gridlines
+    for _ in range(0,5):
+       rp.gridlines()
 
     ### Making Quiver Plot ###
-#    for _ in range(0,5):
-#        rp.quiver_plot()
+    #    for _ in range(0,5):
+    #        rp.quiver_plot()
 
     # Ellipses
     for _ in range(0,10):
@@ -396,7 +400,7 @@ if __name__=="__main__":
         
     #     rp.cmap = c + "_r"
     #     rp.triplot(savefig=True)
-    
+
     plt.show()
 
 
