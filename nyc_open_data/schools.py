@@ -35,8 +35,8 @@ class schoolPlot:
         # Using geopandas plot functionality
         df = pd.merge(self.schools, data, how='left', left_on='ATS_CODE', right_on='DBN').fillna(0)
         ax = df.plot(column='# Students Residing in Shelter',
-                   markersize=5,
-                   cmap='terrain', legend=True)
+                     markersize=5,
+                     cmap='terrain', legend=True)
 
         ax.set_axis_off()
 

@@ -265,7 +265,7 @@ class randomPlotter(object):
         ax.set_xticks([])
         ax.set_yticks([])
     
-    def ellipses(self, cmap:str = 'BrBG', hatch:str, set_title:bool = False, savefig:bool=False):
+    def ellipses(self, hatch:str, cmap:str = 'BrBG',  set_title:bool = False, savefig:bool=False):
         '''Plots randomly generated ellipses and fill in intersections'''
         
         f,ax = plt.subplots()
@@ -374,23 +374,23 @@ if __name__=="__main__":
         
 
     # Gauss waves
-    # print('Creating Gauss waves')
-    # m = np.random.randint(-100,100, 250)
-    # s = np.random.randint(-100,100, 250)
-    # x = np.linspace(-250,250)
-    # rp.make_gauss_waves(x, m, s, savefig=True)
-    #
+    print('Creating Gauss waves')
+    m = np.random.randint(-100,100, 250)
+    s = np.random.randint(-100,100, 250)
+    x = np.linspace(-250,250)
+    rp.make_gauss_waves(x, m, s, savefig=False)
+
     #    Gridlines
-    for _ in range(0,5):
-       rp.gridlines()
+    # for _ in range(0,5):
+    #    rp.gridlines()
 
     ### Making Quiver Plot ###
     #    for _ in range(0,5):
     #        rp.quiver_plot()
 
     # Ellipses
-    for _ in range(0,10):
-       rp.ellipses(savefig=True)
+    # for _ in range(0,10):
+    #    rp.ellipses(savefig=True)
 
     # Making ~spiky~ tripcolor plot
     # mom_cmaps = [ "BrBG", 'vlag']

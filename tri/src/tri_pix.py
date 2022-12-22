@@ -43,7 +43,7 @@ def create_rag(img) -> None:
 
 if __name__ == "__main__":
 
-    img_path = os.path.join(".", "img", "proposal.png")
+    img_path = os.path.join("..", "img", "proposal.png")
     img_data = get_image_data(img_path)
     
     # print(f"Image array shape: {img_data.shape}")
