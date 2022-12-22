@@ -160,3 +160,4 @@ nyc_open_data/data/*
 *.pdf
 *.gif
 *.jpg
+*/env
