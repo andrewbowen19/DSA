@@ -156,7 +156,7 @@ image_recreate/logs
 
 nyc_open_data/data/*
 
-
+*.png
 *.pdf
 *.gif
 *.jpg
