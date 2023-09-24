@@ -15,7 +15,6 @@ from matplotlib import pyplot as plt
 from PIL import Image
 
 
-
 def get_image_data(image_path: str) -> np.ndarray:
     """Gets an image's data and returns it as a numpy array"""
     data = Image.open(image_path)
